@@ -115,5 +115,8 @@
     "test:karma": "karma start tests/karma.conf.js -- --single-run --release",
     "tsd": "tsc && node tsd.js",
     "tsd:compile": "tsc --pretty false types/index.d.ts"
+  },
+  "dependencies": {
+    "react-scripts": "^2.1.3"
   }
 }
