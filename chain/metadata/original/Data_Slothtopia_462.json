@@ -1,0 +1,50 @@
+{
+ "name": "Slothtopia #462",
+ "description": "1466 Slothopia Avatars",
+"image": "ipfs:///NewUriToReplace/1.glb",
+ "NFT_DNA": "4-2-3-23-1-3-5",
+ "attributes": [
+{
+      "trait_type": "accessories",
+      "value": "none",
+      "count": 821,
+      "frequency": "56.00%" 
+    },
+   {
+      "trait_type": "badges",
+      "value": "none",
+      "count": 825,
+      "frequency": "56.27%" 
+    },
+   {
+      "trait_type": "clothes",
+      "value": "fantom",
+      "count": 195,
+      "frequency": "13.30%" 
+    },
+   {
+      "trait_type": "hats",
+      "value": "weedpot",
+      "count": 21,
+      "frequency": "1.43%" 
+    },
+   {
+      "trait_type": "mouth",
+      "value": "blunt",
+      "count": 229,
+      "frequency": "15.62%" 
+    },
+   {
+      "trait_type": "skins",
+      "value": "brown",
+      "count": 687,
+      "frequency": "46.80%" 
+    },
+   {
+      "trait_type": "tattoos",
+      "value": "weedleaf",
+      "count": 332,
+      "frequency": "22.64%" 
+    }
+]
+}

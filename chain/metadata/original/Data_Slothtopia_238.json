@@ -1,0 +1,50 @@
+{
+ "name": "Slothtopia #238",
+ "description": "1466 Slothopia Avatars",
+"image": "ipfs:///NewUriToReplace/1.glb",
+ "NFT_DNA": "2-2-13-18-5-10-5",
+ "attributes": [
+{
+      "trait_type": "accessories",
+      "value": "monocle",
+      "count": 151,
+      "frequency": "10.30%" 
+    },
+   {
+      "trait_type": "badges",
+      "value": "none",
+      "count": 825,
+      "frequency": "56.27%" 
+    },
+   {
+      "trait_type": "clothes",
+      "value": "tiedye",
+      "count": 118,
+      "frequency": "8.04%" 
+    },
+   {
+      "trait_type": "hats",
+      "value": "peace",
+      "count": 117,
+      "frequency": "7.98%" 
+    },
+   {
+      "trait_type": "mouth",
+      "value": "none",
+      "count": 810,
+      "frequency": "55.25%" 
+    },
+   {
+      "trait_type": "skins",
+      "value": "pink",
+      "count": 105,
+      "frequency": "7.16%" 
+    },
+   {
+      "trait_type": "tattoos",
+      "value": "weedleaf",
+      "count": 332,
+      "frequency": "22.64%" 
+    }
+]
+}

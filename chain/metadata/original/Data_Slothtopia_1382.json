@@ -1,0 +1,50 @@
+{
+ "name": "Slothtopia #1382",
+ "description": "1466 Slothopia Avatars",
+ "image": "ipfs:///NewUriToReplace/1.glb",
+ "NFT_DNA": "4-2-4-2-5-3-5",
+ "attributes": [
+{
+      "trait_type": "accessories",
+      "value": "none",
+      "count": 821,
+      "frequency": "56.00%" 
+    },
+   {
+      "trait_type": "badges",
+      "value": "none",
+      "count": 825,
+      "frequency": "56.27%" 
+    },
+   {
+      "trait_type": "clothes",
+      "value": "kobeaway24",
+      "count": 74,
+      "frequency": "5.04%" 
+    },
+   {
+      "trait_type": "hats",
+      "value": "blackbeanie",
+      "count": 106,
+      "frequency": "7.23%" 
+    },
+   {
+      "trait_type": "mouth",
+      "value": "none",
+      "count": 810,
+      "frequency": "55.25%" 
+    },
+   {
+      "trait_type": "skins",
+      "value": "brown",
+      "count": 687,
+      "frequency": "46.80%" 
+    },
+   {
+      "trait_type": "tattoos",
+      "value": "weedleaf",
+      "count": 332,
+      "frequency": "22.64%" 
+    }
+]
+}

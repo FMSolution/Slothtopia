@@ -1,0 +1,49 @@
+{
+ "name": "Slothtopia #825",
+ "description": "1466 Slothopia Avatars",
+"image": "ipfs:///NewUriToReplace/1.glb",
+ "NFT_DNA": "6-2-1-18-3-2-3",
+ "attributes": [
+{
+      "trait_type": "accessories",
+      "value": "ringnose",
+      "count": 186,
+      "frequency": "12.68%" 
+    },
+   {
+      "trait_type": "badges",
+      "value": "none",
+      "count": 825,
+      "frequency": "56.27%" 
+    },
+   {
+      "trait_type": "clothes",
+      "value": "blackslothtopia",
+      "count": 190,
+      "frequency": "12.96%" 
+    },
+   {
+      "trait_type": "hats",
+      "value": "peace",
+      "count": 117,
+      "frequency": "7.98%" 
+    },
+   {
+      "trait_type": "mouth",
+      "value": "joint",
+      "count": 131,
+      "frequency": "8.93%" 
+    },
+   {
+      "trait_type": "skins",
+      "value": "black",
+      "count": 166,
+      "frequency": "11.32%" 
+    },   {
+      "trait_type": "tattoos",
+      "value": "none",
+      "count": 767,
+      "frequency": "52.31%" 
+    }
+]
+}

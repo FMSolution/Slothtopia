@@ -1,0 +1,50 @@
+{
+ "name": "Slothtopia #809",
+ "description": "1466 Slothopia Avatars",
+"image": "ipfs:///NewUriToReplace/1.glb",
+ "NFT_DNA": "4-1-3-9-5-3-1",
+ "attributes": [
+{
+      "trait_type": "accessories",
+      "value": "none",
+      "count": 821,
+      "frequency": "56.00%" 
+    },
+   {
+      "trait_type": "badges",
+      "value": "ftm",
+      "count": 255,
+      "frequency": "17.39%" 
+    },
+   {
+      "trait_type": "clothes",
+      "value": "fantom",
+      "count": 195,
+      "frequency": "13.30%" 
+    },
+   {
+      "trait_type": "hats",
+      "value": "headphones",
+      "count": 62,
+      "frequency": "4.22%" 
+    },
+   {
+      "trait_type": "mouth",
+      "value": "none",
+      "count": 810,
+      "frequency": "55.25%" 
+    },
+   {
+      "trait_type": "skins",
+      "value": "brown",
+      "count": 687,
+      "frequency": "46.80%" 
+    },
+   {
+      "trait_type": "tattoos",
+      "value": "420",
+      "count": 205,
+      "frequency": "13.98%" 
+    }
+]
+}

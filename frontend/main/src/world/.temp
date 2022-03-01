@@ -1,0 +1,350 @@
+// some light textures
+
+
+// Create an entity with a light component
+// const light = new pc.Entity();
+//      light.addComponent("light", {
+//          castShadows: true,
+//          affectDynamic: true, 
+//          color: new pc.Color(1, 1, 1),
+//          normalOffsetBias: 0.05,
+//          shadowBias: 0.2,
+//          shadowDistance: 40,
+//          type: "directional",
+//          shadowResolution: 1024
+//  });
+//  app.root.addChild(light);
+//  light.setLocalEulerAngles(45, 45, 0);
+
+
+// floor for text display 
+
+// const floorModel = new pc.Entity();
+// floorModel.addComponent("model", {
+//     type: "plane"
+// });
+// floorModel.setLocalPosition(0, 0.5, 0);
+// floorModel.setLocalScale(500, 1, 500);
+// ground.addChild(floorModel);
+
+
+
+// function cmpThree(_x:number, _z:number,  cx:number, cz: number, offset:number):boolean {
+//     var x_ = Math.abs(_x - cx) > offset;
+//     var z_ = Math.abs(_z - cz) > offset;
+//     return( x_ && z_ );
+// }
+
+// function getChairPos(allPositions:pc.Vec3[]):pc.Vec3|any{
+//     var sug = new pc.Vec3(getRandomNumber(100,false), 1, getRandomNumber(60,true));
+//     for(var i=0; i<allPositions.length; i++){
+//         if(!cmpThree(sug.x, sug.z, allPositions[i].x, allPositions[i].z, 3)){
+//             return getChairPos(allPositions);
+//         }
+//     }
+//     return sug;
+// }
+
+
+// function createMainSkybox(){
+//     var cubemap = new pc.Texture(app.graphicsDevice, {
+//         cubemap: true,
+//     });
+//     var sbAssets = [
+//         app.assets.find('winterforest_posz.png'),
+//         app.assets.find('winterforest_negz.png'), 
+//         app.assets.find('winterforest_posy.png'), 
+//         app.assets.find('winterforest_negy.png'), 
+//         app.assets.find('winterforest_negx.png'), 
+//         app.assets.find('winterforest_posx.png')];
+
+//         console.log(sbAssets)
+
+//     cubemap.setSource(sbAssets.map((texture) => {
+//             return texture.resource.getSource();
+//         }));
+        
+//     // set as the skybox
+//     app.scene.skybox = cubemap;
+
+// }
+
+
+
+// screen?
+
+//  // Create a 3D world screen, which is basically a `screen` with `screenSpace` set to false
+//  const screen = new pc.Entity('screen');
+//  screen.setLocalScale(0.01, 0.01, 0.01);
+//  screen.setPosition(0, 0.01, 0); // place UI slightly above the ground
+//  screen.setLocalRotation(new pc.Quat().setFromEulerAngles(-90, 0, 0));
+//  screen.addComponent("screen", {
+//      referenceResolution: new pc.Vec2(1280, 720),
+//      screenSpace: false
+//  });
+//  app.root.addChild(screen);
+
+
+        sloth.addComponent("rigidbody", {
+                type: pc.BODYTYPE_DYNAMIC,
+                mass:20,
+                friction:0.5,
+                restitution:0.5,
+                angularDamping:0,
+        });
+
+
+import React, {useEffect, useState} from 'react';
+import * as pc from 'playcanvas/build/playcanvas.js';
+import SlothopiaW3  from '../service/contract';
+import { wasmSupported, loadWasmModuleAsync } from '../helpers/wasm-loader.js';
+import MainAssets from './MainAssets';
+import Coms from './Communication';
+
+
+interface PCAsset {
+    name: string,
+    extention:string,
+    type: string,
+    data?: any,
+    url: string
+};
+
+
+
+class SlothopiaWorld {
+public canvas:HTMLCanvasElement;
+private mainDiv:HTMLElement;
+private walletAddress:string;
+public isLoading:boolean;
+private isRunning:boolean;
+public plyrComs:Coms;
+
+
+constructor(wAddr: string){
+	let canvas = document.getElementById('main-canvas') as HTMLCanvasElement;
+	let mainDiv = document.getElementById('main') as HTMLElement;
+    this.isLoading = true;
+    this.isRunning = false;
+    this.walletAddress = wAddr;
+    this.plyrComs = this.initiatePlayer();
+	this.canvas = canvas;
+	this.mainDiv = mainDiv;
+	console.log('initatied');
+    this.startMain();
+}
+
+mintAvatar(){
+    console.log('in minting')
+    console.log(this.walletAddress)
+    SlothopiaW3._mintAvatar(this.walletAddress)
+}
+
+initiatePlayer():Coms {
+    var playerComs = new Coms(this.walletAddress);
+    return playerComs;
+}
+
+
+
+
+initiateApp(){
+    // create the main playCanvas app
+    const app = new pc.Application(this.canvas, {
+            mouse: new pc.Mouse(document.body),
+            touch: new pc.TouchDevice(document.body),
+            keyboard: new pc.Keyboard(window),
+            gamepads: new pc.GamePads(),
+        });
+    app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+    app.setCanvasResolution(pc.RESOLUTION_AUTO);
+    (window as any)["pc"] = pc;
+    (window as any)["slothApp"] = app;
+    return app
+}
+
+
+async startMain(){
+    await this.activateWASM();
+    const worldApp = this.initiateApp();
+    this.loadAssets(worldApp);
+    this.showWorld(worldApp);
+}
+
+
+formAssetName(asset:PCAsset){
+    return asset.name+'.'+asset.extention;
+}
+
+loadAssets(app: pc.Application){
+    var _isFetchingAssets : boolean = false;
+    var worldAssets : Array<PCAsset> = MainAssets;
+    for(var i=0; i<worldAssets.length; i++){
+        if(app.assets.find(this.formAssetName(worldAssets[i])) != null){
+            continue;
+        }
+        if(i === worldAssets.length -1){
+            this.externalAssetLoads(app, worldAssets[i], true);
+        }else{
+            this.externalAssetLoads(app, worldAssets[i], false);
+        }
+    }
+    console.log('finished externalAssetLoads');
+}
+
+
+async externalAssetLoads(app: pc.Application, appAsset: PCAsset, updateMainState: boolean){
+    var self = this;
+    if(appAsset.type == 'texture'){
+        //@ts-ignore
+        app.loader.getHandler("texture").crossOrigin = "anonymous";
+    }
+    await app.assets.loadFromUrl(appAsset.url, appAsset.type, function(err, asset){
+        if(!err && asset){
+           app.assets.add(asset);
+           if(updateMainState){
+            self.isLoading = false;
+           }
+        }
+    });
+}
+
+activateWASM(){
+    if(wasmSupported()){
+        loadWasmModuleAsync('Ammo', 'http://192.168.8.116:5000/get/scripts/ammo.wasm.js', 'http://192.168.8.116:5000/get/scripts/ammo.wasm.wasm', function(){console.log('loaded WASM')})
+    }else{
+        loadWasmModuleAsync('Ammo', 'http://192.168.8.116:5000/get/scripts/ammo.js', '', function(){console.log('loaded WASM')})
+    }
+}
+
+
+showWorld(app: pc.Application){
+    if(this.isLoading){
+        const timer: ReturnType<typeof setTimeout> = setTimeout(() => this.showWorld(app), 10000);
+        return;
+    }else{
+        if(!this.isRunning){
+            mainRun();
+            this.isRunning = true;
+        }
+        
+    }
+    var self = this;
+
+   async function getGLBFile(){
+    // sloth to change  = newSloth
+    // playerSloth.model.asset = nModel.resource.model.id
+        var glb_file = await SlothopiaW3._getAvatar("1");
+        console.log('GLB file url = ', glb_file)
+        console.log('loading GLB from IPFS')
+        self.externalAssetLoads(app, {name: 'avatarMain', extention:'glb', type:'container', url: glb_file}, false);       
+    }
+
+    (window as any)['getGLB'] = getGLBFile;
+
+
+    function addSomeSloths(){
+        const slothGLB = app.assets.find('sloth-demo.glb');
+        const slothTemp = slothGLB.resource.instantiateModelEntity({
+            castShadows: false
+        });
+        slothTemp.addComponent("collision", {
+                type: "mesh",
+                asset:slothGLB.resource.model._id,
+                model:slothGLB.resource.model.model
+        });
+        slothTemp.addComponent("rigidbody", {
+                type: pc.BODYTYPE_DYNAMIC,
+                mass:20,
+        });
+        slothTemp.setPosition(Math.floor(Math.random()*100),2,Math.floor(Math.random()*75));
+        slothTemp.setLocalScale(2,2,2);
+        app.root.addChild(slothTemp)
+    }
+
+    (window as any)["slothAddition"] = addSomeSloths
+    
+    function mainRun(){
+
+        app.start();
+        console.log('running..')
+        // const auctionHouseGLB = app.assets.find('auction-house.glb');
+        // const auctionHouse = auctionHouseGLB.resource.instantiateRenderEntity({
+        //     castShadows:false
+        // });
+        // auctionHouse.addComponent("rigidbody", {
+        //     type: pc.BODYTYPE_STATIC,
+        //     friction:0.01,
+        // });
+        // console.log(auctionHouseGLB.resource.model);
+        // auctionHouse.addComponent("collision", {
+        //     type:"mesh",
+        //     asset:auctionHouseGLB.resource.model._id,
+        //     model:auctionHouseGLB.resource.model.model
+        // });
+        // console.log(auctionHouseGLB.resource.model);
+
+
+        // auctionHouse.translate(0,8,0);
+        // app.root.addChild(auctionHouse);
+
+        // Create an Entity for the ground
+
+        const ground = new pc.Entity('Ground');
+
+        ground.addComponent("collision", {
+            type:"box",
+            halfExtents: new pc.Vec3(450, 2, 250)
+        })
+        ground.addComponent("rigidbody", {
+                type: pc.BODYTYPE_STATIC,
+                friction:0.5,
+                restitution:0.5,
+
+        });
+        ground.setLocalScale(450, 2, 250);
+        ground.setLocalPosition(0, 0, 0);
+
+        const floorModel = new pc.Entity();
+        floorModel.addComponent("model", {
+            type: "plane"
+        });
+        floorModel.setLocalPosition(0, 2, 0);
+        floorModel.setLocalScale(450, 2, 250);
+        ground.addChild(floorModel);
+        app.root.addChild(ground);
+
+        // Create a camera that will be driven by the character controller
+        const camera = new pc.Entity();
+        camera.addComponent("camera", {
+            clearColor: new pc.Color(0.4, 0.45, 0.5),
+            farClip: 500,
+            fov: 75,
+            nearClip: 0.1
+        });
+        camera.setLocalPosition(0, 14, 6);
+        camera.setLocalEulerAngles(0,90,0);
+
+
+        const slothGLB = app.assets.find('sloth-demo.glb');
+        const sloth = slothGLB.resource.instantiateModelEntity({
+            castShadows: false
+        });
+        sloth.name = "playerSloth";
+        sloth.addComponent("collision", {
+                type: "mesh",
+                renderAsset:slothGLB.resource.model.model,
+        });
+        sloth.addComponent("rigidbody", {
+                type: pc.BODYTYPE_DYNAMIC,
+                mass:20,
+                friction:0.5,
+                restitution:0.5,
+                angularDamping:0,
+        });
+
+
+        // auctionHouse.addComponent("collision", {
+        //     type:"mesh",
+        //     renderAsset:auctionHouseGLB.resource.model.model
+        // });

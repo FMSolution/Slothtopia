@@ -1,0 +1,50 @@
+{
+ "name": "Slothtopia #873",
+ "description": "1466 Slothopia Avatars",
+"image": "ipfs:///NewUriToReplace/1.glb",
+ "NFT_DNA": "4-3-8-2-1-3-1",
+ "attributes": [
+{
+      "trait_type": "accessories",
+      "value": "none",
+      "count": 821,
+      "frequency": "56.00%" 
+    },
+   {
+      "trait_type": "badges",
+      "value": "peace",
+      "count": 120,
+      "frequency": "8.18%" 
+    },
+   {
+      "trait_type": "clothes",
+      "value": "leaf",
+      "count": 79,
+      "frequency": "5.38%" 
+    },
+   {
+      "trait_type": "hats",
+      "value": "blackbeanie",
+      "count": 106,
+      "frequency": "7.23%" 
+    },
+   {
+      "trait_type": "mouth",
+      "value": "blunt",
+      "count": 229,
+      "frequency": "15.62%" 
+    },
+   {
+      "trait_type": "skins",
+      "value": "brown",
+      "count": 687,
+      "frequency": "46.80%" 
+    },
+   {
+      "trait_type": "tattoos",
+      "value": "420",
+      "count": 205,
+      "frequency": "13.98%" 
+    }
+]
+}

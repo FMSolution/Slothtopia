@@ -1,0 +1,6 @@
+# ignore temp
+temp/
+*.glb
+*.pem
+AWS/
+node_modules/

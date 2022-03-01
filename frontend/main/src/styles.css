@@ -1,0 +1,11 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 10px;
+}

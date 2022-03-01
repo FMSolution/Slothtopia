@@ -1,0 +1,50 @@
+{
+ "name": "Slothtopia #350",
+ "description": "1466 Slothopia Avatars",
+"image": "ipfs:///NewUriToReplace/1.glb",
+ "NFT_DNA": "7-2-12-19-5-11-3",
+ "attributes": [
+{
+      "trait_type": "accessories",
+      "value": "shades",
+      "count": 140,
+      "frequency": "9.54%" 
+    },
+   {
+      "trait_type": "badges",
+      "value": "none",
+      "count": 825,
+      "frequency": "56.27%" 
+    },
+   {
+      "trait_type": "clothes",
+      "value": "solanasloth",
+      "count": 35,
+      "frequency": "2.38%" 
+    },
+   {
+      "trait_type": "hats",
+      "value": "purplebeanie",
+      "count": 72,
+      "frequency": "4.91%" 
+    },
+   {
+      "trait_type": "mouth",
+      "value": "none",
+      "count": 810,
+      "frequency": "55.25%" 
+    },
+   {
+      "trait_type": "skins",
+      "value": "rainbow",
+      "count": 64,
+      "frequency": "4.36%" 
+    },
+   {
+      "trait_type": "tattoos",
+      "value": "none",
+      "count": 767,
+      "frequency": "52.31%" 
+    }
+]
+}
